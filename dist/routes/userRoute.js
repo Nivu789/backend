@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const userController_1 = require("../controllers/userController");
+const authMiddleware_1 = require("../middlewares/authMiddleware");
+const fetchCommitteeImagesFromS3_1 = require("../middlewares/fetchCommitteeImagesFromS3");
+const fetchActivityImagesFromS3_1 = require("../middlewares/fetchActivityImagesFromS3");
+exports.userRouter = express_1.default.Router();
+exports.userRouter.post('/login', authMiddleware_1.authMiddleware, userController_1.memberLogin);
+exports.userRouter.post('/login-admin', userController_1.adminLogin);
+exports.userRouter.get('/auth', authMiddleware_1.authMiddleware);
+exports.userRouter.get('/events', userController_1.getEvents);
+exports.userRouter.get('/get-announcements', userController_1.getAnnouncementsUser);
+exports.userRouter.post('/fetch-committee-images', fetchCommitteeImagesFromS3_1.fetchCommitteeImagesFromS3);
+exports.userRouter.post('/get-activity-events', userController_1.fetchEventsOfActivity);
+exports.userRouter.post('/fetch-activity-images', fetchActivityImagesFromS3_1.fetchActivityImagesFromS3);
+exports.userRouter.post('/get-message', userController_1.sendWhatsappMessage);
