@@ -14,7 +14,6 @@ export const listFilesInS3 = (req:Request,res:Response,next:NextFunction) =>{
         return new Promise ((resolve, reject) => {
             const s3params = {
               Bucket: 'samskrithibucket',
-              MaxKeys: 20,
               Delimiter: '/',
               Prefix: 'gallery/'+req.body.prefix
             };
