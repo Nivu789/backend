@@ -16,7 +16,6 @@ const fetchCommitteeImagesFromS3 = (req, res, next) => {
         return new Promise((resolve, reject) => {
             const s3params = {
                 Bucket: 'samskrithibucket',
-                MaxKeys: 20,
                 Delimiter: '/',
                 Prefix: 'committees/' + req.body.prefix
             };
