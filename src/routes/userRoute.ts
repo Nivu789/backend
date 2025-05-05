@@ -1,5 +1,5 @@
 import express from 'express'
-import { adminLogin, fetchEventsOfActivity, getAnnouncementsUser, getEvents, memberLogin, sendWhatsappMessage } from '../controllers/userController'
+import { adminLogin, fetchEventsOfActivity, getAnnouncementsUser, getEvents, getVideos, memberLogin, sendWhatsappMessage } from '../controllers/userController'
 import { authMiddleware } from '../middlewares/authMiddleware'
 import { fetchCommitteeImagesFromS3 } from '../middlewares/fetchCommitteeImagesFromS3'
 import { fetchActivityImagesFromS3 } from '../middlewares/fetchActivityImagesFromS3'
@@ -25,3 +25,5 @@ userRouter.post('/fetch-activity-images',fetchActivityImagesFromS3)
 
 
 userRouter.post('/get-message',sendWhatsappMessage)
+
+userRouter.get('/get-videos',getVideos)

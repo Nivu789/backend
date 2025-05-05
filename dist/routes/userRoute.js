@@ -19,3 +19,4 @@ exports.userRouter.post('/fetch-committee-images', fetchCommitteeImagesFromS3_1.
 exports.userRouter.post('/get-activity-events', userController_1.fetchEventsOfActivity);
 exports.userRouter.post('/fetch-activity-images', fetchActivityImagesFromS3_1.fetchActivityImagesFromS3);
 exports.userRouter.post('/get-message', userController_1.sendWhatsappMessage);
+exports.userRouter.get('/get-videos', userController_1.getVideos);

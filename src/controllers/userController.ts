@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import EVENT from '../models/eventModel';
 import ANNOUNCEMENT from '../models/announcementModel';
 import { sendMessage, getTextMessageInput } from '../helpers/messageHelper'
-import twilio from 'twilio'
+import VIDEO from '../models/videoModel';
 
 
 export const memberLogin = async (req: Request, res: Response, next: NextFunction) => {
@@ -133,4 +133,18 @@ export const sendWhatsappMessage = async (req: Request, res: Response, next: Nex
         console.log(error)
     }
 }
+
+export const getVideos = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const videos = await VIDEO.find({})
+        if (videos) {
+            res.json({ videos })
+        } else {
+            res.json({ error: "Something went wrong" })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 

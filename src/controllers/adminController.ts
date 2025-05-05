@@ -4,6 +4,7 @@ import EVENT from "../models/eventModel";
 import moment from 'moment-timezone';
 import ANNOUNCEMENT from "../models/announcementModel";
 import GALLERY from "../models/galleryModel";
+import VIDEO from "../models/videoModel";
 
 export const postEvent = async(req:Request,res:Response,next:NextFunction) =>{
     try {
@@ -200,6 +201,26 @@ export const deleteGalleryFolder = async(req:Request,res:Response) =>{
             }else{
                 return res.json({success:false,message:"Folder deletion failed"})
             }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const postVideo = async(req:Request,res:Response,next:NextFunction) =>{
+    try {
+        console.log("dsdsd",req.body)
+        const {description} = req.body
+        const fileLocation = req.file ? (req.file as any).location : ""
+        
+        const videoContent = await VIDEO.create({
+            description,
+            file:fileLocation
+        })
+        if(videoContent){
+            res.json({message:"Video uploaded successfully",success:true})
+        }else{
+            res.json({error:"Something went wrong",succes:false})
         }
     } catch (error) {
         console.log(error)

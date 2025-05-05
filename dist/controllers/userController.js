@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendWhatsappMessage = exports.fetchEventsOfActivity = exports.getAnnouncementsUser = exports.getEvents = exports.adminLogin = exports.memberLogin = void 0;
+exports.getVideos = exports.sendWhatsappMessage = exports.fetchEventsOfActivity = exports.getAnnouncementsUser = exports.getEvents = exports.adminLogin = exports.memberLogin = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const eventModel_1 = __importDefault(require("../models/eventModel"));
 const announcementModel_1 = __importDefault(require("../models/announcementModel"));
 const messageHelper_1 = require("../helpers/messageHelper");
+const videoModel_1 = __importDefault(require("../models/videoModel"));
 const memberLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { phone, password } = req.body.data;
@@ -149,3 +150,18 @@ const sendWhatsappMessage = (req, res, next) => __awaiter(void 0, void 0, void 0
     }
 });
 exports.sendWhatsappMessage = sendWhatsappMessage;
+const getVideos = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const videos = yield videoModel_1.default.find({});
+        if (videos) {
+            res.json({ videos });
+        }
+        else {
+            res.json({ error: "Something went wrong" });
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.getVideos = getVideos;

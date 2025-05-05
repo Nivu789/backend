@@ -21,6 +21,7 @@ const s3 = new aws_sdk_1.default.S3({
     region: process.env.AWS_REGION,
 });
 const deleteFileS3 = (req, res, next) => {
+    var _a, _b;
     try {
         if (req.body.filePath) {
             const filePath = req.body.filePath.slice(52, req.body.filePath.length).replace(/%20/g, ' ');
@@ -53,8 +54,8 @@ const deleteFileS3 = (req, res, next) => {
                 });
             });
         }
-        else if (req.body.data.imgPath) {
-            console.log(req.body.data.imgPath);
+        else if ((_b = (_a = req === null || req === void 0 ? void 0 : req.body) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.imgPath) {
+            console.log("Insite");
             const filePath = req.body.data.imgPath.slice(42, req.body.data.imgPath.length).replace(/%20/g, ' ');
             console.log("PATHHHHH", filePath);
             s3.deleteObject({ Bucket: "samskrithibucket", Key: filePath }, function (err, data) {
@@ -71,6 +72,7 @@ const deleteFileS3 = (req, res, next) => {
             });
         }
         else {
+            console.log("here");
             next();
         }
     }

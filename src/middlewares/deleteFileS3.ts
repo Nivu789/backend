@@ -38,8 +38,8 @@ export const deleteFileS3 = (req:Request,res:Response,next:NextFunction) =>{
                 return res.json({success:true})
             }
         })
-        }else if(req.body.data.imgPath){
-            console.log(req.body.data.imgPath)
+        }else if(req?.body?.data?.imgPath){
+            console.log("Insite")
             const filePath = req.body.data.imgPath.slice(42,req.body.data.imgPath.length).replace(/%20/g, ' ')
         console.log("PATHHHHH",filePath)
         s3.deleteObject({Bucket:"samskrithibucket",Key:filePath}, async function(err, data) {
@@ -56,6 +56,7 @@ export const deleteFileS3 = (req:Request,res:Response,next:NextFunction) =>{
         }
         
         else{
+            console.log("here")
             next()
         }
         

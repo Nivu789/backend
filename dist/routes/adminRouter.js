@@ -24,6 +24,7 @@ const listFilesInS3_1 = require("../middlewares/listFilesInS3");
 const fileUploadS3_1 = require("../middlewares/fileUploadS3");
 const deleteFileS3_1 = require("../middlewares/deleteFileS3");
 const galleryModel_1 = __importDefault(require("../models/galleryModel"));
+const videoUploadS3_1 = require("../middlewares/videoUploadS3");
 exports.adminRouter = express_1.default.Router();
 exports.adminRouter.post('/post-event', adminAuth_1.adminAuth, s3Upload_1.s3Upload, adminController_1.postEvent);
 exports.adminRouter.get('/get-events', adminAuth_1.adminAuth, adminController_1.getEvents);
@@ -73,6 +74,7 @@ exports.adminRouter.post('/gallery-upload', upload.array('photos'), function (re
 exports.adminRouter.post('/post-announcement', fileUploadS3_1.fileUploadS3, adminController_1.postAnnouncement);
 exports.adminRouter.post('/edit-announcement', fileUploadS3_1.fileUploadS3, adminController_1.editAnnouncement);
 exports.adminRouter.post('/delete-announcement', deleteFileS3_1.deleteFileS3, adminController_1.deleteAnnouncement);
+exports.adminRouter.post('/post-video', videoUploadS3_1.videoUploadS3, adminController_1.postVideo);
 exports.adminRouter.post('/delete-file', deleteFileS3_1.deleteFileS3);
 exports.adminRouter.post('/delete-committee-image', deleteFileS3_1.deleteFileS3);
 exports.adminRouter.get('/get-announcements', adminController_1.getAnnouncements);

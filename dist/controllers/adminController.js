@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteGalleryFolder = exports.getGalleryFolders = exports.deleteAnnouncement = exports.editAnnouncement = exports.getAnnouncements = exports.postAnnouncement = exports.removeEvent = exports.editEventInfo = exports.getEventInfo = exports.getEvents = exports.postEvent = void 0;
+exports.postVideo = exports.deleteGalleryFolder = exports.getGalleryFolders = exports.deleteAnnouncement = exports.editAnnouncement = exports.getAnnouncements = exports.postAnnouncement = exports.removeEvent = exports.editEventInfo = exports.getEventInfo = exports.getEvents = exports.postEvent = void 0;
 const formatDataAndTime_1 = require("../helpers/formatDataAndTime");
 const eventModel_1 = __importDefault(require("../models/eventModel"));
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 const announcementModel_1 = __importDefault(require("../models/announcementModel"));
 const galleryModel_1 = __importDefault(require("../models/galleryModel"));
+const videoModel_1 = __importDefault(require("../models/videoModel"));
 const postEvent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, description, venue, seats, dates, time, showInHome, activity } = req.body.eventData;
@@ -231,3 +232,24 @@ const deleteGalleryFolder = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.deleteGalleryFolder = deleteGalleryFolder;
+const postVideo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log("dsdsd", req.body);
+        const { description } = req.body;
+        const fileLocation = req.file ? req.file.location : "";
+        const videoContent = yield videoModel_1.default.create({
+            description,
+            file: fileLocation
+        });
+        if (videoContent) {
+            res.json({ message: "Video uploaded successfully", success: true });
+        }
+        else {
+            res.json({ error: "Something went wrong", succes: false });
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.postVideo = postVideo;

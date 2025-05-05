@@ -1,6 +1,6 @@
 import express from 'express'
 import { adminAuth } from '../middlewares/adminAuth'
-import { deleteAnnouncement, deleteGalleryFolder, editAnnouncement, editEventInfo, getAnnouncements, getEventInfo, getEvents, getGalleryFolders, postAnnouncement, postEvent, removeEvent } from '../controllers/adminController'
+import { deleteAnnouncement, deleteGalleryFolder, editAnnouncement, editEventInfo, getAnnouncements, getEventInfo, getEvents, getGalleryFolders, postAnnouncement, postEvent, postVideo, removeEvent } from '../controllers/adminController'
 import { s3Upload } from '../middlewares/s3Upload'
 import { NextFunction, Request, Response } from "express";
 const { S3Client } = require('@aws-sdk/client-s3')
@@ -10,6 +10,7 @@ import { listFilesInS3 } from '../middlewares/listFilesInS3';
 import { fileUploadS3 } from '../middlewares/fileUploadS3';
 import { deleteFileS3 } from '../middlewares/deleteFileS3';
 import GALLERY from '../models/galleryModel';
+import { videoUploadS3 } from '../middlewares/videoUploadS3';
 
 
 
@@ -73,6 +74,8 @@ const upload = multer({
   adminRouter.post('/edit-announcement',fileUploadS3,editAnnouncement)
 
   adminRouter.post('/delete-announcement',deleteFileS3,deleteAnnouncement)
+
+adminRouter.post('/post-video',videoUploadS3,postVideo)
 
 
   adminRouter.post('/delete-file',deleteFileS3)
